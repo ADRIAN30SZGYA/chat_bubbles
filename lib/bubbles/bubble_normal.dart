@@ -34,7 +34,7 @@ class BubbleNormal extends StatelessWidget {
     this.sent = false,
     this.delivered = false,
     this.seen = false,
-    this.onTap = () => {},
+    required this.onTap,
   }) : super(key: key);
 
   ///chat bubble builder method
