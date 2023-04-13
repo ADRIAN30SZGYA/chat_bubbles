@@ -77,7 +77,7 @@ class BubbleNormal extends StatelessWidget {
               )
             : Container(),
         GestureDetector(
-          onTap: onTap,
+          onTap: () => { onTap() },
           child: Container(
             color: Colors.transparent,
             constraints:
