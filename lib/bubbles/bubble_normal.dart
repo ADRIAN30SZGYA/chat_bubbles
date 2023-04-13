@@ -22,6 +22,7 @@ class BubbleNormal extends StatelessWidget {
   final bool sent;
   final bool delivered;
   final bool seen;
+  final Function onTap;
 
   BubbleNormal({
     Key? key,
@@ -33,6 +34,7 @@ class BubbleNormal extends StatelessWidget {
     this.sent = false,
     this.delivered = false,
     this.seen = false,
+    this.onTap = () => {},
   }) : super(key: key);
 
   ///chat bubble builder method
@@ -74,52 +76,55 @@ class BubbleNormal extends StatelessWidget {
                 ),
               )
             : Container(),
-        Container(
-          color: Colors.transparent,
-          constraints:
-              BoxConstraints(maxWidth: MediaQuery.of(context).size.width * .8),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
-            child: Container(
-              decoration: BoxDecoration(
-                color: color,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(bubbleRadius),
-                  topRight: Radius.circular(bubbleRadius),
-                  bottomLeft: Radius.circular(tail
-                      ? isSender
-                          ? bubbleRadius
-                          : 0
-                      : BUBBLE_RADIUS),
-                  bottomRight: Radius.circular(tail
-                      ? isSender
-                          ? 0
-                          : bubbleRadius
-                      : BUBBLE_RADIUS),
-                ),
-              ),
-              child: Stack(
-                children: <Widget>[
-                  Padding(
-                    padding: stateTick
-                        ? EdgeInsets.fromLTRB(12, 6, 28, 6)
-                        : EdgeInsets.symmetric(vertical: 6, horizontal: 12),
-                    child: text,
+        GestureDetector(
+          onTap: onTap,
+          child: Container(
+            color: Colors.transparent,
+            constraints:
+                BoxConstraints(maxWidth: MediaQuery.of(context).size.width * .8),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: color,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(bubbleRadius),
+                    topRight: Radius.circular(bubbleRadius),
+                    bottomLeft: Radius.circular(tail
+                        ? isSender
+                            ? bubbleRadius
+                            : 0
+                        : BUBBLE_RADIUS),
+                    bottomRight: Radius.circular(tail
+                        ? isSender
+                            ? 0
+                            : bubbleRadius
+                        : BUBBLE_RADIUS),
                   ),
-                  stateIcon != null && stateTick
-                      ? Positioned(
-                          bottom: 4,
-                          right: 6,
-                          child: stateIcon,
-                        )
-                      : SizedBox(
-                          width: 1,
-                        ),
-                ],
+                ),
+                child: Stack(
+                  children: <Widget>[
+                    Padding(
+                      padding: stateTick
+                          ? EdgeInsets.fromLTRB(12, 6, 28, 6)
+                          : EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+                      child: text,
+                    ),
+                    stateIcon != null && stateTick
+                        ? Positioned(
+                            bottom: 4,
+                            right: 6,
+                            child: stateIcon,
+                          )
+                        : SizedBox(
+                            width: 1,
+                          ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
+        )
       ],
     );
   }
